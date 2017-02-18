@@ -27,11 +27,6 @@
 	<bean name="/test1/helloworld" class="com.tgb.web.controller.HelloWorldController" />
 	
 	<!-- 静态资源访问 -->
-	<!-- 注意这里的写法和表达的意思 -->
-	<!-- 注意这里只是在springMVC 拦截所有请求下过滤请求来实现静态资源访问，
-	要访问静态资源我们还可以有其他的办法，但这个项目中的方法比较好
-	
-	 -->
 	 <mvc:resources location="/img/" mapping="/img/**"/>  
 	 <mvc:resources location="/js/" mapping="/js/**"/>   
 	

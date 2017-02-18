@@ -10,35 +10,17 @@
       http://www.springframework.org/schema/context/spring-context.xsd  
       http://www.springframework.org/schema/mvc  
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-      
-	
-	<bean name="/test1/multi" class="com.tgb.web.controller.MultiController">
-		<property name="methodNameResolver">
-			<ref bean="paramMethodResolver"/>
-		</property>
-	</bean>
-	<bean name="/test1/img.do" class="com.tgb.web.controller.StaticController">
-		<property name="methodNameResolver">
-			<ref bean="paramMethodResolver"/>
-		</property>
-	</bean>
-	
-	
-	<bean name="/test1/helloworld" class="com.tgb.web.controller.HelloWorldController" />
-	
+     <!-- 注解扫描包 -->
+	<context:component-scan base-package="com.tgb.web.controller.annotation" />
+	<!-- 开启注解 -->
+	<!-- 注意下面两个bean每次都会用到，因为一个要找到类，一个要找到方法，可以优化 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></bean>
 	<!-- 静态资源访问 -->
-	<!-- 注意这里的写法和表达的意思 -->
-	<!-- 注意这里只是在springMVC 拦截所有请求下过滤请求来实现静态资源访问，
-	要访问静态资源我们还可以有其他的办法，但这个项目中的方法比较好
-	
-	 -->
 	 <mvc:resources location="/img/" mapping="/img/**"/>  
 	 <mvc:resources location="/js/" mapping="/js/**"/>   
 	
-	<bean id="paramMethodResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
-		<property name="paramName" value="do"></property>	
-	</bean>
-	
+
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
